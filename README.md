@@ -41,5 +41,5 @@ nvidia_modeset
 nvidia_uvm
 nvidia
 ```
-16. Run the script after a new kernel update.
+16. Run the [script](https://github.com/drgreenthumb93/Fedora42_MOK_enrollment/blob/main/signing_tool.sh) after a new kernel update.
 
