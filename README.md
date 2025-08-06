@@ -5,10 +5,12 @@ This is a quick tutorial for removing the current MOK and installing a new one. 
 
 1. Frist you need to remove the current MOK with ```sudo mokutil --reset```. This will reset all MOK certificates.
 2. Then remove all NVIDIA drivers
-``sudo dnf remove *nvidia*``
-``sudo akmods --force```
-```sudo dracut --force```
-```sudo reboot``
+```
+sudo dnf remove *nvidia*
+sudo akmods --force
+sudo dracut --force
+sudo reboot
+```
 3. If you used the NVIDIA installer, do it with ```sudo /usr/bin/nvidia-uninstall```
 4. Reinstall the driver package ```sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm```
 5. Install NVIDIA drivers ```sudo dnf install akmod-nvidia```, optional for CUDA and ML ```sudo dnf install xorg-x11-drv-nvidia-cuda```
