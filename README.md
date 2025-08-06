@@ -16,7 +16,7 @@ This is a quick tutorial for removing the current MOK and installing a new one. 
 7. Create the certificate with openssl ```openssl req -new -x509 -newkey rsa:2048 -keyout MOK.priv -outform DER -out MOK.der -nodes -days 36500 -subj "/CN=Fedora MOK NVIDIA/"```
 8. Import the fresh certificate: ```sudo mokutil --import MOK.der``` -> you will be asked for a password
 9. Reboot the system, you will be asked by the MOK-Manager to enroll or boot, select "ENROLL". Enter the password you've created with ```mokutil```, hit "continue" and reboot; the enrolled key is now active.
-10. Find the NVIDIA-Kernel module with ```find /lib/modules/$(uname -r)/ -name 'nvidia*.ko*'```<br/>
+10. Find the built NVIDIA-Kernel module with ```find /lib/modules/$(uname -r)/ -name 'nvidia*.ko*'```<br/>
 It should look like this <br/>
 ```/lib/modules/6.15.9-201.fc42.x86_64/kernel/drivers/platform/x86/nvidia-wmi-ec-backlight.ko.xz```<br/>
 ```/lib/modules/6.15.9-201.fc42.x86_64/extra/nvidia/nvidia-drm.ko```<br/>
@@ -24,5 +24,11 @@ It should look like this <br/>
 ```/lib/modules/6.15.9-201.fc42.x86_64/extra/nvidia/nvidia-modeset.ko```<br/>
 ```/lib/modules/6.15.9-201.fc42.x86_64/extra/nvidia/nvidia-peermem.ko```<br/>
 ```/lib/modules/6.15.9-201.fc42.x86_64/extra/nvidia/nvidia-uvm.ko```<br/>
-
-12. 
+12. Sign the modules with your created key:
+```
+find /usr/lib/modules/$(uname -r)/extra/nvidia/ -name "*.ko*" | while read mod; do
+  sudo /usr/src/kernels/$(uname -r)/scripts/sign-file sha256 ~/mok/MOK.priv ~/mok/MOK.der "$mod"
+done
+```
+13. Rebuild initramfs with ```dracut --force``` and finally reboot.
+14. After rebooting, check if your driver is loaded correctly with ```nvidia-smi```
