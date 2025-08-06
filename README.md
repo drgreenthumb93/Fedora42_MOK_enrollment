@@ -34,3 +34,12 @@ done
 ```
 13. Rebuild initramfs with ```dracut --force``` and finally reboot.
 14. After rebooting, check if your driver is loaded correctly with ```nvidia-smi```
+15. Double-check if the modules are loaded ```lsmod | grep nvidia```, it should look like this </br>
+```
+nvidia_drm
+nvidia_modeset
+nvidia_uvm
+nvidia
+```
+16. Run the script after a new kernel update.
+
