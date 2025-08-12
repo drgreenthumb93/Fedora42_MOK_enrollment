@@ -1,5 +1,5 @@
 # Fedora42_MOK_enrollment
-Quick guide for secure boot with fedora and NVIDIA graphics cards
+Quick guide for secure boot with Fedora and NVIDIA graphics cards.
 
 This is a quick tutorial for removing the current MOK and installing a new one. If you're struggling getting secure boot to work with NVIDIA cards, this is your guide!
 
